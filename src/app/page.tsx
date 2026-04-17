@@ -106,12 +106,15 @@ export default async function HomePage() {
           ranking.length > 0 ? (
             <div style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.08)', overflow: 'hidden' }}>
               {ranking.map((player: any, idx: number) => (
-                <div key={player.id} style={{ 
+                <Link href={`/user/${player.id}`} key={player.id} style={{ 
                   display: 'flex', 
                   alignItems: 'center', 
                   padding: '1.5rem', 
                   borderBottom: idx !== ranking.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none',
-                  background: idx === 0 ? 'rgba(240, 147, 251, 0.05)' : 'transparent'
+                  background: idx === 0 ? 'rgba(240, 147, 251, 0.05)' : 'transparent',
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  transition: 'background 0.2s ease'
                 }}>
                   <div style={{ fontSize: '1.5rem', fontWeight: 800, color: idx === 0 ? '#f093fb' : '#666', width: '40px' }}>
                     {idx + 1}
@@ -123,10 +126,11 @@ export default async function HomePage() {
                     <div style={{ fontWeight: 600, fontSize: '1.1rem' }}>{player.full_name}</div>
                     <div style={{ color: '#888', fontSize: '0.85rem' }}>{player.vote_count} voti ricevuti</div>
                   </div>
-                  <div style={{ fontSize: '2rem', fontWeight: 800, color: '#f5576c' }}>
+                  <div style={{ fontSize: '2rem', fontWeight: 800, color: '#f5576c', marginRight: '1rem' }}>
                     {player.total_score}
                   </div>
-                </div>
+                  <ChevronRight color="#666" size={24} />
+                </Link>
               ))}
             </div>
           ) : (
