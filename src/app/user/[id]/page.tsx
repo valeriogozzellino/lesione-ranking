@@ -91,21 +91,37 @@ export default async function UserVotesPage({ params }: { params: Promise<{ id: 
           alignItems: 'center',
           marginBottom: '2rem'
         }}>
-          <div style={{ 
-            width: '100px', 
-            height: '100px', 
-            borderRadius: '50%', 
-            background: 'linear-gradient(135deg, #f093fb, #f5576c)', 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center', 
-            fontSize: '2.5rem', 
-            color: '#fff', 
-            marginBottom: '1rem',
-            boxShadow: '0 10px 20px rgba(245, 87, 108, 0.3)'
-          }}>
-            {profile.full_name?.charAt(0) || 'U'}
-          </div>
+          {profile.avatar_url ? (
+            <img 
+              src={profile.avatar_url.startsWith('/') ? profile.avatar_url : `/${profile.avatar_url}`} 
+              alt={profile.full_name} 
+              style={{
+                width: '100px', 
+                height: '100px', 
+                borderRadius: '50%', 
+                objectFit: 'cover',
+                marginBottom: '1rem',
+                boxShadow: '0 10px 20px rgba(245, 87, 108, 0.3)',
+                border: '2px solid rgba(255,255,255,0.1)'
+              }} 
+            />
+          ) : (
+            <div style={{ 
+              width: '100px', 
+              height: '100px', 
+              borderRadius: '50%', 
+              background: 'linear-gradient(135deg, #f093fb, #f5576c)', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              fontSize: '2.5rem', 
+              color: '#fff', 
+              marginBottom: '1rem',
+              boxShadow: '0 10px 20px rgba(245, 87, 108, 0.3)'
+            }}>
+              {profile.full_name?.charAt(0) || 'U'}
+            </div>
+          )}
           <h2 style={{ fontSize: '1.8rem', fontWeight: 800, margin: '0 0 0.5rem 0' }}>{profile.full_name}</h2>
           <div style={{ color: '#9f9ea7', fontSize: '1rem', marginBottom: '1rem' }}>
             Punteggio totale: <b style={{ color: '#f5576c', fontSize: '1.2rem' }}>{totalScore}</b>
@@ -127,15 +143,28 @@ export default async function UserVotesPage({ params }: { params: Promise<{ id: 
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-                    <div style={{ 
-                      width: '36px', height: '36px', 
-                      borderRadius: '50%', 
-                      background: 'linear-gradient(135deg, #333, #111)', 
-                      display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                      color: '#888', fontWeight: 600, fontSize: '0.9rem' 
-                    }}>
-                      {vote.voter?.full_name?.charAt(0) || 'V'}
-                    </div>
+                    {vote.voter?.avatar_url ? (
+                      <img 
+                        src={vote.voter.avatar_url.startsWith('/') ? vote.voter.avatar_url : `/${vote.voter.avatar_url}`} 
+                        alt={vote.voter.full_name || 'Utente'} 
+                        style={{ 
+                          width: '36px', height: '36px', 
+                          borderRadius: '50%', 
+                          objectFit: 'cover',
+                          border: '1px solid rgba(255,255,255,0.1)' 
+                        }} 
+                      />
+                    ) : (
+                      <div style={{ 
+                        width: '36px', height: '36px', 
+                        borderRadius: '50%', 
+                        background: 'linear-gradient(135deg, #333, #111)', 
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                        color: '#888', fontWeight: 600, fontSize: '0.9rem' 
+                      }}>
+                        {vote.voter?.full_name?.charAt(0) || 'V'}
+                      </div>
+                    )}
                     <div>
                       <div style={{ fontWeight: 600 }}>{vote.voter?.full_name || 'Utente Anonimo'}</div>
                       <div style={{ fontSize: '0.75rem', color: '#666' }}>

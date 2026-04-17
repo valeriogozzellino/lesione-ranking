@@ -54,9 +54,18 @@ export default async function VoteFormPage({ params, searchParams }: { params: P
         )}
 
         <div className={styles.profileInfo}>
-          <div className={styles.avatar}>
-            {profile.full_name?.charAt(0) || 'U'}
-          </div>
+          {profile.avatar_url ? (
+            <img 
+              src={profile.avatar_url.startsWith('/') ? profile.avatar_url : `/${profile.avatar_url}`} 
+              alt={profile.full_name} 
+              className={styles.avatar}
+              style={{ objectFit: 'cover' }}
+            />
+          ) : (
+            <div className={styles.avatar}>
+              {profile.full_name?.charAt(0) || 'U'}
+            </div>
+          )}
           <h2 className={styles.name}>{profile.full_name}</h2>
         </div>
 

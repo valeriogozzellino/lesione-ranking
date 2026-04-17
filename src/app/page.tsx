@@ -119,9 +119,17 @@ export default async function HomePage() {
                   <div style={{ fontSize: '1.5rem', fontWeight: 800, color: idx === 0 ? '#f093fb' : '#666', width: '40px' }}>
                     {idx + 1}
                   </div>
-                  <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'linear-gradient(135deg, #333, #111)', marginRight: '1rem', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', color: '#888' }}>
-                    {player.full_name?.charAt(0) || 'U'}
-                  </div>
+                  {player.avatar ? (
+                    <img 
+                      src={player.avatar.startsWith('/') ? player.avatar : `/${player.avatar}`} 
+                      alt={player.full_name} 
+                      style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover', marginRight: '1rem', flexShrink: 0, border: '2px solid rgba(255,255,255,0.05)' }} 
+                    />
+                  ) : (
+                    <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'linear-gradient(135deg, #333, #111)', marginRight: '1rem', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', color: '#888' }}>
+                      {player.full_name?.charAt(0) || 'U'}
+                    </div>
+                  )}
                   <div style={{ flex: 1 }}>
                     <div style={{ fontWeight: 600, fontSize: '1.1rem' }}>{player.full_name}</div>
                     <div style={{ color: '#888', fontSize: '0.85rem' }}>{player.vote_count} voti ricevuti</div>

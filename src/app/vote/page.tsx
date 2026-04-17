@@ -53,9 +53,18 @@ export default async function VoteListPage() {
         <div className={styles.userGrid}>
           {profiles?.map((profile) => (
             <Link key={profile.id} href={activeSerata ? `/vote/${profile.id}` : '#'} className={styles.userCard} style={{ opacity: activeSerata ? 1 : 0.5, pointerEvents: activeSerata ? 'auto' : 'none' }}>
-              <div className={styles.avatar}>
-                {profile.full_name?.charAt(0) || 'U'}
-              </div>
+              {profile.avatar_url ? (
+                <img 
+                  src={profile.avatar_url.startsWith('/') ? profile.avatar_url : `/${profile.avatar_url}`} 
+                  alt={profile.full_name} 
+                  className={styles.avatar}
+                  style={{ objectFit: 'cover' }}
+                />
+              ) : (
+                <div className={styles.avatar}>
+                  {profile.full_name?.charAt(0) || 'U'}
+                </div>
+              )}
               <h3 className={styles.name}>{profile.full_name || 'Utente Sconosciuto'}</h3>
             </Link>
           ))}
