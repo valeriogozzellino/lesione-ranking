@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import styles from './vote-detail.module.css'
 import { redirect } from 'next/navigation'
-import { submitVote } from './actions'
+import VoteClientForm from './VoteClientForm'
 
 export const dynamic = 'force-dynamic'
 
@@ -60,48 +60,7 @@ export default async function VoteFormPage({ params, searchParams }: { params: P
           <h2 className={styles.name}>{profile.full_name}</h2>
         </div>
 
-        <form action={submitVote} style={{ display: 'flex', flexDirection: 'column' }}>
-          <input type="hidden" name="votedId" value={votedId} />
-          
-          <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="score">
-              Livello di Lesione (1-10)
-            </label>
-            <div className={styles.sliderContainer}>
-              <input 
-                type="range" 
-                id="score" 
-                name="score" 
-                min="1" 
-                max="10" 
-                defaultValue="5" 
-                style={{ flex: 1, accentColor: '#f093fb', height: '6px', cursor: 'pointer' }} 
-                className={styles.input}
-              />
-            </div>
-            <div className={styles.sliderLabels}>
-              <span>1 (Leggera)</span>
-              <span>10 (Gravissima)</span>
-            </div>
-          </div>
-
-          <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="comment">
-              Commento (Opzionale)
-            </label>
-            <textarea
-              id="comment"
-              name="comment"
-              className={styles.textarea}
-              placeholder="Descrivi la lesione... perché merita questo voto?"
-              maxLength={500}
-            ></textarea>
-          </div>
-
-          <button type="submit" className={styles.submitBtn}>
-            Conferma Voto
-          </button>
-        </form>
+        <VoteClientForm votedId={votedId} />
       </div>
     </div>
   )
